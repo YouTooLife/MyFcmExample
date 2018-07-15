@@ -1,6 +1,6 @@
 package net.youtoolife.myfcmexample;
 
-import android.app.Activity;
+
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,10 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -40,10 +37,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d("__notificationData: ", "Message data payload: " + remoteMessage.getData());
         }
-
-        // Check if message contains a notification payload.
-
-
 
         if (remoteMessage.getNotification() != null) {
             Log.d("__notificationDataBody:", "Message Notification Body: " + remoteMessage.getNotification().getBody());

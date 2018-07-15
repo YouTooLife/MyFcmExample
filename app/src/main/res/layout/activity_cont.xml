@@ -17,7 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbarSize="5dp"
         />
+
 
     <Button
         android:id="@+id/logoutBtn"
@@ -42,6 +46,19 @@
             android:layout_gravity="top|end"
 
             android:text="Найти студента"
+            android:textColor="#0000ff"
+            android:textSize="30px" />
+
+        <Button
+            android:id="@+id/topBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="250dp"
+
+            android:layout_gravity="bottom|end"
+
+            android:text="^ ^ ^"
             android:textColor="#0000ff"
             android:textSize="30px" />
 

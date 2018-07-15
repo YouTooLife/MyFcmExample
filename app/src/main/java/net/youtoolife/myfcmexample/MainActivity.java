@@ -21,12 +21,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private TextView textView;
-
-    //private static final String URL_SERVER = "http://ytl.96.lt/fcm_db/login.php";
-
     private ListView listView;
-    //private BroadcastReceiver broadcastReceiver;
     private EditText loginText;
     private EditText inviteText;
     private Button loginBtn;
@@ -40,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        //super.onBackPressed();
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     @Override
@@ -80,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }*/
 
-
         setContentView(R.layout.activity_main);
 
-        //textView = findViewById(R.id.textViewToken);
         String token = SharedPrefManager.getInstance(this).getToken();
         if (token != null) {
             //textView.setText(token);
@@ -121,16 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(intent);
             }
         });
-
-        /*
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-            }
-        };
-        registerReceiver(broadcastReceiver, new IntentFilter(MyFirebaseInstanceIdService.TOKEN_BROADCAST));*/
-
     }
 
     private void login() {
@@ -146,32 +133,27 @@ public class MainActivity extends AppCompatActivity {
         String json = jsonObject.toString();
         System.out.print("json "+json);
         params.put("d", RSAIsa.rsaEncrypt(jsonObject.toString()));
-
+        params.put("i", "i");
 
         RequestHandler requestHandler = new RequestHandler(XA.b(XA.A), params, getApplicationContext());
         requestHandler.request(new CallBack() {
             @Override
             public void callBackFunc(String response) {
                 try {
-                    Log.d("Main: Answ", response);
+                    Log.d("Main: answer", response);
                     JSONObject obj = new JSONObject(response);
                     int id = obj.getInt("id");
                     if (id > -1) {
 
-                        SharedPrefManager.getInstance(getApplicationContext()).storeMsgs(response);
+                        //SharedPrefManager.getInstance(getApplicationContext()).storeMsgs(response);
                         SharedPrefManager.getInstance(getApplicationContext()).storeLogin(login, invite);
-                /*
-                JSONArray arr = obj.getJSONArray("msg");
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject o = arr.optJSONObject(i);
-                    Log.d("MSGS:", o.getString("msg"));
-                }*/
-                        Log.d("Translate:", "goToCont");
+
+                        Log.d("Translate:", "goToContent");
                         Intent content = new Intent(MainActivity.this, ContActivity.class);
                         startActivity(content);
                     }
                     else {
-                        if (id == -2 && SharedPrefManager.getInstance(getApplicationContext()).getMsgs() != null) {
+                        if (id == -2) {
                             Intent content = new Intent(MainActivity.this, ContActivity.class);
                             startActivity(content);
                         }
